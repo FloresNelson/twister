@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/WEB-INF/template/template.xhtml">
+	<ui:define name="title">
+		Bienvenido a Twister, la red social que arrasa!
+	</ui:define>
+	<ui:define name="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Avatar</h3>
+						</div>
+				<div class="panel-body">
+					<h:message for="postContent"></h:message>
+					<h:inputFile id="file" value="#{profileMb.file}"/>
+					<h:message for="file"></h:message>
+					 
+					<h:commandLink styleClass="btn btn-primary"
+						action="#{profileMb.submitPost}">
+			    		Subir
+			    		
+					</h:commandLink>
+				</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

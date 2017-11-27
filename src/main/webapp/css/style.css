@@ -11,3 +11,12 @@ html,body{height:100%;}
 	}
 }
 #content{height:700px;}
+.panel-body {
+    margin: auto;
+    padding: 15px;
+    background: rgba(0,0,0,0.3);
+    width: 50%;
+}
+input[type="text"]{    margin-top: 10px;
+    width: 86%;
+    height:50px;}

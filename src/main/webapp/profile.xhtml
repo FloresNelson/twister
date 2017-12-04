@@ -17,15 +17,17 @@
 							<h3 class="panel-title">Avatar</h3>
 						</div>
 				<div class="panel-body">
+				<h:form method="post" enctype="multipart/form-data">
 					<h:message for="postContent"></h:message>
 					<h:inputFile id="file" value="#{profileMb.file}"/>
 					<h:message for="file"></h:message>
 					 
 					<h:commandLink styleClass="btn btn-primary"
-						action="#{profileMb.submitPost}">
+						action="#{profileMb.updateProfile}">
 			    		Subir
 			    		
 					</h:commandLink>
+				</h:form>
 				</div>
 					</div>
 				</div>

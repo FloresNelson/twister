@@ -6,7 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition template="/WEB-INF/template/template.xhtml">
 	<ui:define name="title">
-		Bienvenido a tu nueva red social
+		Twister - Mis Posts
 	</ui:define>
 	<ui:define name="content">
 		<ui:repeat var="post" value="#{postMb.myPostList}">
@@ -23,6 +23,7 @@
 			  </div>
 			  <div class="panel-body">
 			    <h:outputText value="#{post.content}" />
+			    <img src="/image/#{post.image.path}"/>
 			  </div>
 			</div>
 		</ui:repeat>

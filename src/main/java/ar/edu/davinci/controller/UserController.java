@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import ar.edu.davinci.exception.AuthenticationFailure;
+import ar.edu.davinci.model.Image;
 import ar.edu.davinci.model.User;
 
 @Stateless
@@ -33,6 +34,10 @@ public class UserController {
 		} catch (PersistenceException e){
 			throw new AuthenticationFailure(e);
 		}
+	}
+	
+	public void updateAvatar(User user) {
+		entityManager.merge(user);
 	}
 
 }

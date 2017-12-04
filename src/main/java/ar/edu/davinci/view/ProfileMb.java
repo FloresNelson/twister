@@ -1,7 +1,5 @@
 package ar.edu.davinci.view;
 
-import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -9,13 +7,10 @@ import javax.inject.Named;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Part;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import ar.edu.davinci.auth.AuthMb;
 import ar.edu.davinci.controller.ImageController;
-import ar.edu.davinci.controller.PostController;
+import ar.edu.davinci.controller.UserController;
 import ar.edu.davinci.model.Image;
-import ar.edu.davinci.model.Post;
+import ar.edu.davinci.model.User;
 
 @Named
 @MultipartConfig(location="/tmp",
@@ -25,65 +20,61 @@ import ar.edu.davinci.model.Post;
 public class ProfileMb {
 	
 	@Inject
-	private AuthMb authMb;
+	UserController userController;
 	
-	@Inject 
-	private PostController postCntl;
+	@Inject
+	ImageController imgController;
 	
-	@Inject 
-	private ImageController imgCntl;
+	@Inject
+	LoginMb loginMb;
 	
-	private Part file;
-	
-    @NotNull
-    @Size(min=2,max=255)
-	private String content;
   
-	public void submitPost(){
-		try{
-			Image img = null;
-			if(file != null && file.getSize() > 0 && file.getContentType().startsWith("image/")){
-				img = imgCntl.upload(file);
-			}
-			postCntl.addPost(authMb.getUser(), content,img);
-			content = null;
-		} catch (Exception e){
-			e.printStackTrace();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error interno", null);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+    private Part file;
+
+	private User user = new User();
+  
+	public String updateProfile(){
+		
+		boolean errorCarga = false;
+						
+		user.setId(loginMb.getCurrentUser().getId());
+		user.setEmail(loginMb.getCurrentUser().getEmail());
+		
+		if(file != null && file.getSize() > 0){
+			try{
+				Image img = null;
+				if(file.getContentType().startsWith("image/")){
+					img = imgController.upload(file);
+					user.setImage(img);
+				}
+			} catch (Exception e){
+				e.printStackTrace();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error al cargar la foto.", null);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				errorCarga = true;
+			}	
+		}else{
+			user.setImage(loginMb.getCurrentUser().getImage());
 		}
-	}
-	
-	public List<Post> getPostList(){
-		try{
-			return postCntl.all(0, 10);
-		} catch (Exception e){
-			e.printStackTrace();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error interno", null);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+								
+		if(!errorCarga){
+			userController.updateAvatar(user);
+			loginMb.setCurrentUser(user);
+			return "index";
+		}else{
 			return null;
 		}
+		
 	}
 	
-	public List<Post> getMyPostList(){
-		try{
-			return postCntl.from(authMb.getUser(), 0, 10);
-		} catch (Exception e){
-			e.printStackTrace();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error interno", null);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return null;
-		}
+	public User getUser() {
+		return user;
 	}
 
-	public String getContent() {
-		return content;
+	public void setUser(User user) {
+		this.user = user;
 	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
+	
 	public Part getFile() {
 		return file;
 	}

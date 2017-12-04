@@ -8,8 +8,8 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
   
-  <name>My Mate</name>
-  <url>http://mymate.com</url>
+  <name>Twister - La red Social que arrasa</name>
+  <url>https://github.com/nhus/twister</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

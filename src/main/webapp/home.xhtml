@@ -34,18 +34,19 @@
 		</h:form>
 		<h:panelGroup layout="block" id="postList">
 			<ui:repeat var="post" value="#{postMb.postList}">
-				<div class="panel panel-default">
-					<div class="panel-heading">
+				<h:panelGroup class="panel panel-default">
+					<h:form id="commentForm">
+					<h:panelGroup class="panel-heading">
 						<h3 class="panel-title">
 							<h:outputText value="#{post.user.name}" />
 							<small> 
 							<h:outputText value="#{post.date}">
 									<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-								</h:outputText>
+							</h:outputText>
 							</small>
 						</h3>
-					</div>
-					<div class="panel-body">
+					</h:panelGroup>
+					<h:panelGroup class="panel-body" id="commentList">
 						<h:outputText value="#{post.content}" />
 						<img src="/image/#{post.image.path}"/>
 						<ul class="list-group">
@@ -62,13 +63,18 @@
 									<h:outputText value="#{comment.content}" />
 								</li>
 							</ui:repeat>
-							<h:form>
+							
+							<h:panelGroup layout="block">
 								<h:inputText value="#{commentMb.comment}" styleClass="form-control" />
-								<h:commandLink styleClass="btn btn-primary" action="#{commentMb.create(post)}" >Comentar</h:commandLink>
-							</h:form>
+								<h:commandLink styleClass="btn btn-primary" action="#{commentMb.create(post)}" >Comentar
+								<f:ajax render="commentList" execute="@form"></f:ajax>
+								</h:commandLink>
+							</h:panelGroup>	
+							
 						</ul>
-					</div>
-				</div>
+					</h:panelGroup>
+					</h:form>
+				</h:panelGroup>
 			</ui:repeat>
 		</h:panelGroup>
 

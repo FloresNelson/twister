@@ -1,24 +1,27 @@
 package ar.edu.davinci.view;
-
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
-
+import javax.enterprise.context.SessionScoped;
 import ar.edu.davinci.auth.AuthMb;
 import ar.edu.davinci.controller.UserController;
 import ar.edu.davinci.exception.AuthenticationFailure;
 import ar.edu.davinci.model.User;
 
 @Named
-public class LoginMb {
+public class LoginMb implements Serializable {
 	
 	@Inject
 	private AuthMb authMb;
 
 	@Inject
-	private UserController userCntr;
+	private UserController userController;
+	
+	private User user = new User();
+	private User currentUser;
 	
 	@NotNull
 	private String username;
@@ -26,9 +29,15 @@ public class LoginMb {
 	@NotNull
 	private String password;
 	
+	
+	
+	public boolean isLogged(){
+		return currentUser != null;
+	}
+	
 	public String login(){
 		try {
-			User user = userCntr.authenticate(username, password);
+			User user = userController.authenticate(username, password);
 			authMb.setUser(user);
 			return "home?faces-redirect=true";
 		} catch (AuthenticationFailure e) {
@@ -42,7 +51,23 @@ public class LoginMb {
 		authMb.setUser(null);
 		return "home?faces-redirect=true";
 	}
+	
+	public User getCurrentUser(){
+		return currentUser;
+	}
+	
+	public void setCurrentUser(User user){
+		this.currentUser = user;
+	}
+	
+	public User getUser() {
+		return user;
+	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	public String getUsername() {
 		return username;
 	}

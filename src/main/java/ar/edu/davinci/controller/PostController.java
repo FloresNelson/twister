@@ -28,7 +28,7 @@ public class PostController {
 	}
 	
 	public List<Post> all(int from,int max){
-		TypedQuery<Post> q = entityManager.createQuery("Select p from Post p",Post.class);
+		TypedQuery<Post> q = entityManager.createQuery("Select p from Post p order by p.date desc",Post.class);
 		q.setFirstResult(from);
 		q.setMaxResults(max);
 		return q.getResultList();
@@ -36,7 +36,7 @@ public class PostController {
 	
 	
 	public List<Post> from(User user, int from,int max){
-		TypedQuery<Post> q = entityManager.createQuery("Select p from Post p where p.user = :user",Post.class);
+		TypedQuery<Post> q = entityManager.createQuery("Select p from Post p where p.user = :user order by p.date desc",Post.class);
 		q.setParameter("user",user);
 		q.setFirstResult(from);
 		q.setMaxResults(max);

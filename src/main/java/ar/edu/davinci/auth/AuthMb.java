@@ -13,7 +13,7 @@ public class AuthMb implements Serializable{
 
 	private static final long serialVersionUID = -4803205115493366016L;
 	
-	private User user;
+	private User user = null;
 
 	public boolean isLogged() {
 		return user != null;
@@ -26,6 +26,4 @@ public class AuthMb implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	
 }

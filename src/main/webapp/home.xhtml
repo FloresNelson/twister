@@ -38,7 +38,7 @@
 					<h:form id="commentForm">
 					<h:panelGroup class="panel-heading">
 						<h3 class="panel-title">
-						<img src="/image/#{post.user.image.path}"/>
+						<img src="/image/#{post.user.image.path}" class="img-circle poster"  width="150" height="150"/>
 							<h:outputText value="#{post.user.name}" />
 							<small> 
 							<h:outputText value="#{post.date}">
@@ -53,6 +53,7 @@
 						<ul class="list-group">
 							<ui:repeat var="comment" value="#{commentMb.listByPost(post)}">
 								<li class="list-group-item">
+								<img src="/image/#{comment.user.image.path}" class="img-circle commenter"  width="50" height="50"/>
 									<strong>
 										<h:outputText value="#{comment.user.name}" />
 									</strong>

@@ -15,7 +15,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    
    
     @NotNull
     @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
@@ -23,9 +22,11 @@ public class User {
             +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
                  message="{invalid.email}")
     private String email; 
+    
     @NotNull
     @Size(min=4,max=15, message = "El username debe tener entre 4 y 15 caracteres.")
 	private String name;
+    
     @NotNull
     @Size(min=6,max=255)
     private String password;

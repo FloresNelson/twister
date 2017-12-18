@@ -14,21 +14,21 @@
 				<div class="col-md-6 col-md-offset-3">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3 class="panel-title">Avatar</h3>
+							<h3 class="panel-title">Nueva imagen y contraseña</h3>
 						</div>
-				<div class="panel-body">
-				<h:form  enctype="multipart/form-data">
-					<h:message for="postContent"></h:message>
-					<h:inputFile id="file" value="#{profileMb.file}"/>
-					<h:message for="file"></h:message>
-					 
-					<h:commandLink styleClass="btn btn-primary"
-						action="#{profileMb.updateProfile}">
-			    		Subir
-			    		
-					</h:commandLink>
-				</h:form>
-				</div>
+						<div class="panel-body">
+							<h:form enctype="multipart/form-data">
+								<h:message for="postContent"></h:message>
+								<h:inputFile id="file" value="#{profileMb.file}" />
+								<h:message for="file"></h:message>
+								<h:inputSecret value="#{profileMb.newPassword}"
+									 id="newPassword"
+									name="newPassword"></h:inputSecret>
+								<h:commandLink styleClass="btn btn-primary" action="#{profileMb.updateProfile}">
+			    				Actualizar
+								</h:commandLink>
+							</h:form>
+						</div>
 					</div>
 				</div>
 			</div>

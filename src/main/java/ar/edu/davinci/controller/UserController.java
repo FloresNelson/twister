@@ -38,5 +38,6 @@ public class UserController {
 	public void updateAvatar(User user) {
 		entityManager.merge(user);
 	}
+	
 
 }

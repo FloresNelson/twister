@@ -1,50 +1,54 @@
 package ar.edu.davinci.model;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.*;
 
 
 @Entity
 public class User {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-   
-    @NotNull
-    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
-            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
-            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
-                 message="{invalid.email}")
-    private String email; 
-    
-    @NotNull
-    @Size(min=4,max=15, message = "El username debe tener entre 4 y 15 caracteres.")
-	private String name;
-    
-    @NotNull
-    @Size(min=6,max=255)
-    private String password;
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    private Image image;
-    
- public User(){
-    	
-    }
-		
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+
+	@NotNull
+	@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\." + "[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+			+ "(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "{invalid.email}")
+	private String email;
+
+	@NotNull
+	@Size(min = 4, max = 15, message = "El username debe tener entre 4 y 15 caracteres.")
+	private String name;
+
+	@NotNull
+	@Size(min = 6, max = 255)
+	private String password;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Image image;
+
+	@ManyToMany(mappedBy = "usersLikes")
+	private Set<Post> postsLikes = new HashSet<>();
+
+	public User() {
+
+	}
+
 	public User(String email, String name, String password) {
 		super();
 		this.email = email;
 		this.name = name;
 		this.password = password;
 	}
-	
+
 	public User(int ID, String email, String name, String password) {
 		super();
 		this.id = ID;
@@ -52,7 +56,7 @@ public class User {
 		this.name = name;
 		this.password = password;
 	}
-    
+
 	public int getId() {
 		return id;
 	}
@@ -84,7 +88,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-    
+
 	public Image getImage() {
 		return image;
 	}
@@ -92,5 +96,12 @@ public class User {
 	public void setImage(Image image) {
 		this.image = image;
 	}
-}
+	
+	public Set<Post> getPostsLikes() {
+		return postsLikes;
+	}
 
+	public void setPostsLikes(Set<Post> postsLikes) {
+		this.postsLikes = postsLikes;
+	}
+}

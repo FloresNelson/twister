@@ -49,10 +49,9 @@
 						</h:panelGroup>
 						<hr />
 						<h:panelGroup id="likes" layout="block"
-							styleClass="row text-center font-s13" rendered="#{authMb.logged}">
+							styleClass="row text-center font-s13">
 							<h:panelGroup layout="block" styleClass="col-xs-3">
-								<h:commandLink styleClass="font-w600 text-gray-dark"
-									action="#{likeMb.likePost(post)}">
+								<h:commandLink action="#{likeMb.likePost(post)}">
 									<h:panelGroup
 										styleClass="hidden-xs #{authMb.logged and likeMb.existsLike(post) ? 'text-primary' : 'text-primary-dark'}">
 				                        			Me gusta <h:outputText value="#{likeMb.countLikes(post)}" />
@@ -61,6 +60,7 @@
 								</h:commandLink>
 							</h:panelGroup>
 						</h:panelGroup>
+						
 						<h:panelGroup class="panel-body" id="commentList">
 							<h:outputText value="#{post.content}" />
 							<img src="/image/#{post.image.path}" />

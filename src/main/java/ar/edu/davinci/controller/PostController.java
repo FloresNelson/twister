@@ -50,6 +50,7 @@ public class PostController {
 	}
 
 	public void addLike(Post p, User u) {
+		System.out.println("Llegue al like!");
 		Set<User> likes = getLikes(p);
 		if (likes == null)
 			likes = new HashSet<User>();

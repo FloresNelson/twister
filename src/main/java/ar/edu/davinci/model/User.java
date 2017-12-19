@@ -1,6 +1,7 @@
 package ar.edu.davinci.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.*;
-
 
 @Entity
 public class User {
@@ -37,6 +37,8 @@ public class User {
 
 	@ManyToMany(mappedBy = "usersLikes")
 	private Set<Post> postsLikes = new HashSet<>();
+	
+	private Set<User> following = new HashSet<>();
 
 	public User() {
 
@@ -96,7 +98,7 @@ public class User {
 	public void setImage(Image image) {
 		this.image = image;
 	}
-	
+
 	public Set<Post> getPostsLikes() {
 		return postsLikes;
 	}
@@ -104,4 +106,28 @@ public class User {
 	public void setPostsLikes(Set<Post> postsLikes) {
 		this.postsLikes = postsLikes;
 	}
+
+	public Set<User> getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(Set<User> following) {
+		this.following = following;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		User user = (User) o;
+		return Objects.equals(id, user.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
 }

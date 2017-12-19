@@ -87,7 +87,9 @@ public class UserController {
 			following = new HashSet<User>();
 		following.add(followed);
 		user.setFollowing(following);
+		user.getFollowing().size();
 		entityManager.merge(user);				
+		
 	}
 	
 	public void removeFollow(User followed, User user){

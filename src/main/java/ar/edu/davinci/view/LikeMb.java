@@ -1,5 +1,7 @@
 package ar.edu.davinci.view;
 
+import java.util.Set;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -60,6 +62,10 @@ public class LikeMb {
 	
 	public boolean alreadyFollowed(User followed){
 		return userCtrl.alreadyFollowed(followed, authMb.getUser());		
+	}
+	
+	public Set<User> getFollowing(){
+		return userCtrl.getFollowing(authMb.getUser());
 	}
 	
 }

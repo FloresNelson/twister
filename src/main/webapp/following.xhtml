@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<ui:composition template="/WEB-INF/template/template.xhtml">
+	<ui:define name="title">
+		Mis Amigos
+	</ui:define>
+	<ui:define name="content" styleClass="content bg-gray-lighter">	
+        <div class="block">
+	        <div class="block-content">
+	            <p class="push-30">Mis Amigos</p>
+	            <h:panelGroup layout="block" styleClass="table-responsive" id="seguidos">
+	                <table class="table table-striped table-vcenter">
+	                    <thead>
+	                        <tr>
+	                            <th class="text-center" style="width: 120px;"><i class="si si-user"></i></th>
+	                            <th>Usuario</th>
+	                            <th style="width: 15%;">¿Te sigue?</th>
+	                            <th class="text-center" style="width: 100px;">Acciones</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                    	<ui:repeat var="f" value="#{likeMb.following}">                 
+	                        <tr>
+	                           
+	                            <td class="font-w600"> 
+	                            <h:link value="#{f.name}" outcome="profile" >
+					          		<f:param name="id" value="#{f.id}" />
+								</h:link>                        	
+                            	</td>
+	                            <td>	                                
+	                                <h:panelGroup styleClass="label label-success" rendered="#{likelMb.isFollowingMe(f)}">TE SIGUE</h:panelGroup>
+	                                <h:panelGroup styleClass="label label-danger" rendered="#{!likelMb.isFollowingMe(f)}">NO TE SIGUE</h:panelGroup>
+	                            </td>
+	                            <td class="text-center">
+	                                <h:panelGroup layout="block" styleClass="btn-group">	
+	                                <h:form>                                 	                                    
+	                                    <h:commandLink styleClass="btn btn-xs btn-default" action="#{likeMb.removeFollow(f)}" pt:type="button" pt:data-toggle="tooltip" pt:data-original-title="Dejar de seguir">
+	                                    <i class="fa fa-times"></i>	 
+	                                    <f:ajax render="seguidos"></f:ajax>                                   
+	                                    </h:commandLink>	     
+                                    </h:form>                               
+	                                </h:panelGroup>
+	                            </td>
+	                        </tr>
+	                        </ui:repeat> 
+	                    </tbody>
+	                </table>
+	                <br></br>
+	            </h:panelGroup>
+	        </div>
+    	</div>
+	</ui:define>
+</ui:composition>
+</html>

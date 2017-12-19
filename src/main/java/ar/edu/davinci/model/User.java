@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.*;
@@ -38,6 +40,18 @@ public class User {
 	@ManyToMany(mappedBy = "usersLikes")
 	private Set<Post> postsLikes = new HashSet<>();
 	
+	@ManyToMany
+    @JoinTable(name = "social_follows",
+    joinColumns = @JoinColumn(name = "follow_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> followers = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name="social_follows",
+     joinColumns=@JoinColumn(name="user_id"),
+     inverseJoinColumns=@JoinColumn(name="follow_id")
+    )
 	private Set<User> following = new HashSet<>();
 
 	public User() {
